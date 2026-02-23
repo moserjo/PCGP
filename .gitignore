@@ -1,0 +1,23 @@
+# Python compiled files
+__pycache__/
+*.pyc
+
+# VSCode settings
+.vscode/
+
+# Generated experiment files
+#reproduce_paper/*/Experiment*.py
+#reproduce_paper/*/*/Experiment*.py
+
+#input and output data
+MaxEnt2025_paper/Experiment*/input_data/
+MaxEnt2025_paper/Experiment*/output_data/
+MaxEnt2025_paper/graphs_presentation
+
+
+# Files under development
+development/
+
+#just for presentation
+MaxEnt2025_paper/graphs_for_presentation.ipynb
+Tutorials/Tutorial_video
