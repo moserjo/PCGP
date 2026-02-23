@@ -1,0 +1,11 @@
+PCGP==0.1.0
+einops==0.8.1
+gpytorch==1.14
+jax==0.6.0
+matplotlib==3.10.6
+numpy==2.3.2
+numpyro==0.18.0
+pcgp==0.1.0
+scipy==1.16.1
+sympy==1.14.0
+torch==2.7.0
