@@ -2,9 +2,17 @@
 import torch
 import gpytorch
 from .constraint_handling import ConstraintsModifications
+from dataclasses import dataclass
 torch.set_default_dtype(torch.float64)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+@dataclass#parameters_during_training, inverse_hessian, hessian, order_of_parameters_with_gradients, loss_landscape, test_loss
+class train_output:
+    parameters_during_training:dict
+    covariance_matrix: torch.tensor
+    hessian:torch.tensor
+    order_of_parameters_in_covariance:list
+    loss_landscape:list
+    test_loss:float
 
 
 
@@ -55,7 +63,13 @@ def train(model, likelihood, parameters, train_x, train_y, num_tasks, test_x=Non
         for key in parameters_during_training:
             if key != "noise":
                 parameters_during_training[key] =  torch.stack(parameters_during_training[key]).detach().cpu().numpy()
-    return parameters_during_training, inverse_hessian, hessian, order_of_parameters_with_gradients, loss_landscape, test_loss     
+    return train_output(parameters_during_training=parameters_during_training,
+                        covariance_matrix=inverse_hessian,
+                        hessian=hessian,
+                        order_of_parameters_in_covariance=order_of_parameters_with_gradients,
+                        loss_landscape=loss_landscape,
+                        test_loss=test_loss)
+    #return parameters_during_training, inverse_hessian, hessian, order_of_parameters_with_gradients, loss_landscape, test_loss     
 
 
 def predict(model, likelihood, test_x = torch.linspace(0, 1, 51)):
